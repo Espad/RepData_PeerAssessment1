@@ -8,13 +8,20 @@ df <- read.csv("./data/activity.csv")
 
 
 #Question 1. What is mean total number of steps taken per day?
-steps_each_day <- aggregate(df$steps, by=list(df$date),FUN=sum, na.rm=FALSE)
+steps_each_day <- aggregate(df$steps, by=list(df$date),FUN=sum, na.rm=TRUE)
 
 hist(steps_each_day$x, col = "blue", main = paste("Histogram: Steps per day"), xlab = "Total number of steps per day", ylim = c(0, 30), breaks = 7)
 
-mean(steps_each_day$x,na.rm = TRUE)
+step_mean <- mean(steps_each_day$x,na.rm = TRUE)
+step_mean
 
-median(steps_each_day$x,na.rm = TRUE)
+step_median <- median(steps_each_day$x,na.rm = TRUE)
+step_median
+#lets add this info on graphic!
+abline(v=step_mean, col="red", lwd=3)
+abline(v=step_median, col="blue", lwd=3)
+hist(steps_each_day$x, col = "blue", main = paste("Histogram: Steps per day"), xlab = "Total number of steps per day", ylim = c(0, 30), breaks = 7)
+
 
 #Question 2. What is the average daily activity pattern?
 steps_activity <- aggregate(df$steps, by=list(df$interval),FUN=mean, na.rm=TRUE)
